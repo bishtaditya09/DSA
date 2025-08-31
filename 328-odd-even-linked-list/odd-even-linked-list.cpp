@@ -11,30 +11,19 @@
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
-        int c=1;
-        queue<int>que;
         ListNode* p1=head;
-        vector<int>ev,od;
-        int pos=1;
-        while(p1)
+        if(head==nullptr || head->next==nullptr)
+        return head;
+        ListNode* ev=head->next;
+        ListNode* ev_head=ev;
+        while(ev && ev->next)
         {
-            if(pos%2==0) ev.push_back(p1->val);
-            else od.push_back(p1->val);
+            p1->next=ev->next;
             p1=p1->next;
-            pos++;
+            ev->next=p1->next;
+            ev=ev->next;
         }
-         p1=head;
-          for(auto it:od)
-          {
-            p1->val=it;
-            p1=p1->next;
-          }
-          for(auto it:ev)
-          {
-            p1->val=it;
-            p1=p1->next;
-          }
-
+          p1->next=ev_head;
           return head;
     }
 };
