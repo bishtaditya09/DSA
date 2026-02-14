@@ -1,53 +1,32 @@
 class Solution {
 public:
-   bool isSafe(int col,int row,vector<string>&board,int n)
-   {
-       int dupr=row;   //storing the current row
-       int dupc=col;   //storing current col
+    void solve(int col,vector<string>&board,vector<vector<string>>&ans,
+    vector<int>leftrow,vector<int>&upperDia,vector<int>&lowerDia,int n)
+    {
+        if(col==n)
+        {
+            ans.push_back(board);
+            return;
+        }
 
-       while(row>=0 && col>=0)
-       {
-          if(board[row][col]=='Q') return false;
-          row--;
-          col--;
-       }
-
-       row=dupr;
-       col=dupc;
-
-       while(col>=0)          //yeah wla while current column m Q ko dhundega
-       {
-         if(board[row][col]=='Q') return false;
-         col--;
-       }
-      
-      col=dupc;
-      while(row<n && col>=0)
-      {
-        if(board[row][col]=='Q') return false;
-        row++;
-        col--;
-      }
-      return true;
-   }
-   void solve(int col,vector<string>&board,vector<vector<string>>&ans,int n)
-   {
-      if(col==n)
-      {
-         ans.push_back(board);
-         return;
-      } 
-      for(int row=0;row<n;row++)
-      {
-           if(isSafe(col,row,board,n))
-           {
-            board[row][col]='Q';
-            solve(col+1,board,ans,n);
-            board[row][col]='.';
-           }
-      }
-   }
+        for(int row=0;row<n;row++)
+        {
+            if(leftrow[row]==0 && upperDia[n-1-row+col]==0 && lowerDia[row+col]==0)
+            {
+                 leftrow[row]=1;
+                 upperDia[n-1-row+col]=1;
+                 lowerDia[row+col]=1;
+                 board[row][col]='Q';
+                 solve(col+1,board,ans,leftrow,upperDia,lowerDia,n);
+                 leftrow[row]=0;
+                 upperDia[n-1-row+col]=0;
+                 lowerDia[row+col]=0;
+                 board[row][col]='.';
+            }
+        }
+    }
     vector<vector<string>> solveNQueens(int n) {
+        vector<int>leftrow(n,0),upperDia(2*n-1,0),lowerDia(2*n-1,0);
         vector<vector<string>>ans;
         vector<string>board(n);
         string s(n,'.');
@@ -55,7 +34,7 @@ public:
         {
             board[i]=s;
         }
-        solve(0,board,ans,n);
+        solve(0,board,ans,leftrow,upperDia,lowerDia,n);
         return ans;
     }
 };
