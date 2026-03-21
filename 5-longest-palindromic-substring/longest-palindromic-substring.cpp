@@ -1,38 +1,37 @@
 class Solution {
 public:
-    bool ispal(string &s,int i,int j)
-    {
-        int len=(j-i)+1;
-        int ri=j;
-        int le=i;
-        while(le<ri)
-        {
-            if(s[ri--]!=s[le++])
-            return false;
-        }
-        return true;
-    }
     string longestPalindrome(string s) {
         int n=s.size();
-        int maxi=INT_MIN;
-        
-        string ans;
-       for(int i=0;i<n;i++)
-       {
-        int len=0;
-        for(int j=i;j<n;j++)
+        int maxl=0;
+        int st=0;
+        for(int i=0;i<n;i++)
         {
-           if(ispal(s,i,j))
-           {
-              len=j-i+1;
-              if(len>maxi)
-              {
-                 maxi=len;
-                 ans=s.substr(i,j-i+1);
-           }
-           }
-          }
-       }
-       return ans;
+            //Odd ke case mein
+            int le=i,ri=i;
+            while(le>=0 && ri<n && s[ri]==s[le])
+            {
+                if(ri-le+1>maxl)
+                {
+                    st=le;
+                    maxl=ri-le+1;
+                }
+                le--;
+                ri++;
+            }
+
+            //Even ke case
+            le=i,ri=i+1;
+            while(le>=0 && ri<n && s[ri]==s[le])
+            {
+                if(ri-le+1>maxl)
+                {
+                    st=le;
+                    maxl=ri-le+1;
+                }
+                le--;
+                ri++;
+            }
+        }
+        return s.substr(st,maxl);
     }
 };
