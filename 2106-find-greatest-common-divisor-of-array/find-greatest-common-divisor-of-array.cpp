@@ -11,8 +11,10 @@ public:
          return i;
     }
     int findGCD(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
+        int maxi=*max_element(nums.begin(),nums.end());
+        int mini=*min_element(nums.begin(),nums.end());
         int n=nums.size();
-        return gcd(nums[0],nums[n-1]);
+
+        return gcd(mini,maxi);
     }
 };
