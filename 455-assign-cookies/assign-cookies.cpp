@@ -3,17 +3,17 @@ public:
     int findContentChildren(vector<int>& g, vector<int>& s) {
         sort(g.begin(),g.end());
         sort(s.begin(),s.end());
-        int l=0,r=0; 
-        while(l<g.size() && r<s.size())
+        int i=0,j=0;
+        while(i<g.size() && j<s.size())
         {
-            if(s[r]>=g[l])
-            {
-                l++;
-                r++;
+            if(g[i]<=s[j])    //bacche ko satisfied no of cookie mil gyi
+             {
+                i++;          
+                j++;
             }
             else
-            r++;   //cookies ka index
+            j++;          //bacche satisfy nahi h isko aur cookies do
         }
-        return l;
+        return i;
     }
 };
