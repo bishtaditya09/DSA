@@ -16,7 +16,6 @@ public:
             while(mp.size()>k)
             {
                 if(mp[nums[le]]==m) cnt--;
-                if(mp[nums[le]]>m) ext--;
                 mp[nums[le]]--;
                 if(mp[nums[le]]==0)
                 mp.erase(nums[le]);
