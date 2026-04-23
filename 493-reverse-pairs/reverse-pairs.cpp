@@ -41,16 +41,10 @@ int mergesort(vector<int>&arr,int lo,int hi)
     cnt+=mergesort(arr,lo,mid);
     cnt+=mergesort(arr,mid+1,hi);
      
-    int le=lo,ri=mid+1;
-    while(le<=mid && ri<=hi)
-    {
-        if(arr[le]>2ll*arr[ri])
-        {
-            cnt+=(mid-le+1);
-            ri++;
-        }
-        else
-        le++;
+    int ri=mid+1;
+    for(int i=lo;i<=mid;i++){
+    while( ri<=hi && arr[i]>2ll*arr[ri]) ri++;
+    cnt+=ri-(mid+1);
     }
     merge(arr,lo,mid,hi);
     return cnt;
