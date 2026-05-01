@@ -11,7 +11,7 @@ public:
         }
         
         long long maxi=sum;
-        for(int k=0;k<n-1;k++)
+        for(int k=0;k<n;k++)
         {
             sum=sum+og-n*nums[n-1-k];
             maxi=max(maxi,sum);
