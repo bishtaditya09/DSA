@@ -1,37 +1,28 @@
 class Solution {
 public:
     int numberOfSpecialChars(string word) {
-        unordered_map<char,int>mp;
-        unordered_map<char,int>upper; //upper ki first value
-        unordered_set<int>st;
+        vector<int>low(26,-1);
+        vector<int>hi(26,-1);
         int n=word.size();
-        int cnt=0;
-        for(int i=0;i<n;i++)
-        {
-            if(word[i]>='a' && word[i]<='z')
-            mp[word[i]]=i;
-            
-            else if(upper.find(word[i])==upper.end())
-            upper[word[i]]=i;
-        }
 
         for(int i=0;i<n;i++)
         {
-           if(word[i]>='A' && word[i]<='Z')
-           {
-             char c=tolower(word[i]);
-             if(st.find(c)==st.end())
-              {
-                if(mp.find(c) != mp.end() && upper.find(word[i]) != upper.end())
-                 {
-                   if(mp[c]<upper[word[i]]){
-                   cnt++;
-                   st.insert(c);
-                 }
-               } 
-            }
+            if(word[i]>='a' && word[i]<='z')
+            low[word[i]-'a']=i;
+
+            else
+            {
+                int indx=word[i]-'A';
+                if(hi[indx]==-1)
+                hi[indx]=i;
             }
         }
-      return cnt;
+        int cnt=0;
+        for(int i=0;i<26;i++)
+        {
+             if(hi[i]!=-1 && low[i]!=-1 && low[i]<hi[i])
+             cnt++;
+        }
+        return cnt;
     }
 };
