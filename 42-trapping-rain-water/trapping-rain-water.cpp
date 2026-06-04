@@ -1,23 +1,29 @@
 class Solution {
 public:
     int trap(vector<int>& ht) {
-         int n=ht.size();
-         vector<int>lmax(n,0);
-         vector<int>rmax(n,0);
-         lmax[0]=ht[0];
-         for(int i=1;i<n;i++)
-         {
-            lmax[i]=max(ht[i],lmax[i-1]);
-         }
-         rmax[n-1]=ht[n-1];
-         for(int j=n-2;j>=0;j--)
-         {
-             rmax[j]=max(rmax[j+1],ht[j]);
-         }
-         int tw=0;
-         for(int i=0;i<n;i++)
-         tw+=min(lmax[i],rmax[i])-ht[i];
-
-         return tw;
+        int n=ht.size();
+        int le=0,ri=n-1;
+        int tw=0;
+        int lmax=0,rmax=0;
+        while(le<ri)
+        {
+            if(ht[le]<=ht[ri])    //choti value compare karke 
+            {
+                if(ht[le]<lmax)
+                tw+=lmax-ht[le];
+                else
+                lmax=ht[le];
+                le++;
+            }
+            else
+            {
+                if(ht[ri]<rmax)
+                tw+=rmax-ht[ri];
+                else
+                rmax=ht[ri];
+                ri--;
+            }
+        }
+        return tw;
     }
 };
