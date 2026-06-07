@@ -1,46 +1,28 @@
 class Solution {
 public:
-    vector<int> pse(vector<int>&nums)
-    {
-         int n=nums.size();
-         vector<int>ps(n);
-         stack<int>st;
-         for(int i=0;i<n;i++)
-         {
-            while(!st.empty() && nums[st.top()]>=nums[i])
-            st.pop();
-
-            ps[i]=st.empty()?-1:st.top();
-
-            st.push(i);
-         }
-         return ps;
-    }
-    vector<int> nse(vector<int>&nums)
-    {
-         int n=nums.size();
-         vector<int>ns(n);
-         stack<int>st;
-         for(int i=n-1;i>=0;i--)
-         {
-            while(!st.empty() && nums[st.top()]>=nums[i])
-            st.pop();
-
-            ns[i]=st.empty()?n:st.top();
-
-            st.push(i);
-         }
-         return ns;
-    }
-    int largestRectangleArea(vector<int>& ht) {
-        int n=ht.size();
-        vector<int>ps=pse(ht);
-        vector<int>ns=nse(ht);
+    int largestRectangleArea(vector<int>& nums) {
+        int n=nums.size();
+        stack<int>st;
+        int pse,nse;
         int maxi=0;
         for(int i=0;i<n;i++)
         {
-           maxi=max(maxi,ht[i]*(ns[i]-ps[i]-1));
+            while(!st.empty() && nums[i]<=nums[st.top()]){
+            int el=st.top();
+            st.pop();
+            nse=i;
+            pse=st.empty()?-1:st.top();
+            maxi=max(maxi,nums[el]*(nse-pse-1));
+           }
+            st.push(i);
         }
+          while(!st.empty()){
+            int el=st.top();
+            st.pop();
+            nse=n;
+            pse=st.empty()?-1:st.top();
+            maxi=max(maxi,nums[el]*(nse-pse-1));
+           }
         return maxi;
     }
 };
