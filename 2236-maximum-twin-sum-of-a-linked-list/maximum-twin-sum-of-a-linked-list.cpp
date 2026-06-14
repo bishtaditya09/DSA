@@ -21,6 +21,19 @@ public:
         }
         return slow;
     }
+    ListNode* rev(ListNode* head)
+    {
+        ListNode* prev=NULL;
+        ListNode* curr=head;
+        while(curr)
+        {
+            ListNode* temp=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=temp;
+        }
+       return prev;
+    }
     int pairSum(ListNode* head) {
         int sum=0,maxi=INT_MIN;
         ListNode* p1=head;
@@ -28,17 +41,13 @@ public:
         if(head==NULL) return 0;
         if(p1->next==NULL) return p1->val;
         ListNode* mid=midd(head);
-        while(mid)
+        ListNode* p2=rev(mid);
+        while(p2)
         {
-            st.push(mid->val);
-            mid=mid->next;
-        }
-        while(!st.empty())
-        {
-            sum=(p1->val)+st.top();
+            sum=p1->val+p2->val;
+            maxi=max(maxi,sum);
             p1=p1->next;
-            st.pop();
-            maxi=max(sum,maxi);
+            p2=p2->next;
         }
         return maxi;
     }
