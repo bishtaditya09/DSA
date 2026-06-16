@@ -15,7 +15,7 @@ public:
         vector<int>ans;
         stack<TreeNode*>st;
         TreeNode* node=root;
-        while(true)
+        while(node || !st.empty())
         {
             if(node)
             {
@@ -24,7 +24,6 @@ public:
             }
             else
             {
-                if(st.empty()) break;
                 node=st.top();
                 st.pop();
                 ans.push_back(node->val);
