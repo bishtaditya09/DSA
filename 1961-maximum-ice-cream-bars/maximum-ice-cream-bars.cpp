@@ -4,13 +4,17 @@ public:
         sort(costs.begin(),costs.end());
         int cnt=0;
         int n=costs.size();
-        for(int i=0;i<n;i++)
+        int i=0;
+        while(coins && i<n)
         {
-            if(costs[i]<=coins)
+            if(coins>=costs[i])
             {
-                coins-=costs[i];
                 cnt++;
+                coins-=costs[i];
+                i++;
             }
+            else
+            i++;
         }
         return cnt;
     }
