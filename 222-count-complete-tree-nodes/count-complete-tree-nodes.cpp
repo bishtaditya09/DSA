@@ -11,16 +11,32 @@
  */
 class Solution {
 public:
-    void in(TreeNode* root,int &cnt)
-    {
-         if(!root) return;
-         cnt++;
-         in(root->left,cnt);
-         in(root->right,cnt);
-    }
     int countNodes(TreeNode* root) {
-        int cnt=0;
-        in(root,cnt);
-        return cnt;
+        if(!root) return 0;
+        int lh=findht(root);
+        int rh=findrht(root);
+        if(rh==lh) return(1<<rh)-1;
+
+        return 1+countNodes(root->left)+countNodes(root->right);
     }
+    int findht(TreeNode* root)
+    {
+         int cnt=0;
+         while(root)
+         {
+            cnt++;
+            root=root->left;         
+         }
+         return cnt;
+     }
+     int findrht(TreeNode* root)
+    {
+         int cnt=0;
+         while(root)
+         {
+            cnt++;
+            root=root->right;         
+         }
+         return cnt;
+     }
 };
