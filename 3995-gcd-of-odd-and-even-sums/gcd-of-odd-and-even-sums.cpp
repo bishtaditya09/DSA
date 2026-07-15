@@ -11,16 +11,7 @@ public:
          return a;
     }
     int gcdOfOddEvenSums(int n) {
-        int es=0,os=0;
-        int k=1,j=2;
-        for(int i=1;i<=n;i++)
-        {
-             os+=k;
-             k+=2;
-             
-             es+=j;
-             j+=2;
-        }
+        int es=n*(n+1),os=n*n;
         return gcd(os,es);
     }
 };
