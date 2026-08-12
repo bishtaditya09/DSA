@@ -8,7 +8,7 @@ public:
         while(ri<n)
         {
               mp[nums[ri]]++;
-              while(mp[nums[le]]>k || mp[nums[ri]]>k)
+              while(mp[nums[ri]]>k)
               {
                    mp[nums[le]]--;
                    if(mp[nums[le]]==0)
