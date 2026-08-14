@@ -11,8 +11,6 @@ public:
              while(mp[s[ri]]>2)
              {
                   mp[s[le]]--;
-                  if(mp[s[le]]==0)
-                  mp.erase(s[le]);
                   le++;
              }
              maxi=max(maxi,ri-le+1);
