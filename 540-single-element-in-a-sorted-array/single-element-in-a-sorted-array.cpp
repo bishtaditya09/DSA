@@ -1,21 +1,11 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
-        int n=nums.size();
-        if(n==1) return nums[0];
-        if(nums[0]!=nums[1]) return nums[0];
-        if(nums[n-1]!=nums[n-2]) return nums[n-1];
-        int lo=1,hi=n-2;
-        while(lo<=hi)
+        int xr=0;
+        for(auto it:nums)
         {
-            int mid=lo+(hi-lo)/2;
-            if(nums[mid]!=nums[mid-1] && nums[mid+1]!=nums[mid])
-            return nums[mid];
-            if((mid&1 && nums[mid]==nums[mid-1]) || (mid%2==0 && nums[mid]==nums[mid+1]))
-            lo=mid+1;
-            else
-            hi=mid-1;
+            xr^=it;
         }
-        return -1;
+        return xr;
     }
 };
