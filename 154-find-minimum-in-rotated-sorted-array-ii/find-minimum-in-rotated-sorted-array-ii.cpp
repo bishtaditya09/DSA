@@ -1,33 +1,28 @@
 class Solution {
 public:
     int findMin(vector<int>& nums) {
-        int n=nums.size();
-        int hi=n-1,lo=0;
+        int lo=0;
         int mini=INT_MAX;
+        int hi=nums.size()-1;
         while(lo<=hi)
         {
              if(nums[lo]==nums[hi])
              {
-                   mini=min(nums[lo],mini);
-                   lo++;
-                   hi--;
-                   continue;
+                  mini=min(nums[lo],mini);
+                  hi--;
+                  lo++;
+                  continue;
              }
              int mid=lo+(hi-lo)/2;
-             if(nums[lo]<=nums[hi])
+             if(nums[mid]>=nums[lo])
              {
-                    mini=min(nums[lo],mini);
-                    break;
-             }
-             else if(nums[lo]<=nums[mid])
-             {
-                 mini=min(mini,nums[lo]);
-                 lo=mid+1;
+                mini=min(mini,nums[lo]);
+                lo=mid+1;
              }
              else
              {
-                mini=min(mini,nums[mid]);
-                hi=mid-1;
+                  mini=min(mini,nums[mid]);
+                  hi=mid-1;
              }
         }
         return mini;
