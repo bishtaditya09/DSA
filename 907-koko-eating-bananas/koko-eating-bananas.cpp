@@ -5,7 +5,7 @@ public:
          int n=v.size();
          long long sum=0;
          for(int i=0;i<n;i++)
-         sum+=(long long)ceil((double)v[i]/(double)x);
+         sum+=(v[i]+(long long)x-1)/x;
          return sum;
     }
     int minEatingSpeed(vector<int>& piles, int h) {
